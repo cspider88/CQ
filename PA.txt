@@ -1,0 +1,1760 @@
+Q1. Polymorphism Area
+
+#include<iostream>
+#include<cstdio>
+#include<cmath>
+// Include headers as needed
+using namespace std;
+void sphere(int radius){
+    float ans=1.33*3.14*radius*radius*radius;
+    printf("Volume of sphere is %.3f",ans);
+  }
+  void cylinder(int radius,int height){
+    float ans=3.14*radius*radius*height;
+    printf("Volume of cylinder is %.3f",ans);
+  }
+  void cone(int radius,int height){
+    float ans=(1/3)*3.14*radius*radius*height;
+    printf("Volume of cone is %.3f",ans);
+  }
+  void cube(int side){
+    float ans=side*side*side;
+    printf("Volume of cube is %.3f",ans);
+  }
+int main()
+{
+    // Write your code here
+  int choice,radius,height,side;
+  cin>>choice;
+  switch(choice){
+    case 1:{
+      cin>>radius;
+      sphere(radius);
+    }
+      break;
+    case 2:{
+      cin>>radius;
+      cin>>height;
+      cylinder(radius,height);
+    }
+      break;
+    case 3:{
+      cin>>radius;
+      cin>>height;
+      cone(radius,height);
+    }
+      break;
+    case 4:{
+      cin>>side;
+      cube(side);
+    }
+      break;
+    default:{
+      cout<<"wrong choice";
+    }
+      break;
+  }
+    return 0;
+}
+
+
+Q2.Find occurrences of palindrom words in a string
+
+int palindrome(string str,int s,int e){
+  while(s<e){
+    if(str[s]!=str[e]){
+      return 0;
+    }
+    s++,e--;
+  }
+  return 1;
+}
+int countPalindrome(string str)
+{
+  int count=0,n=0;
+  for(int i=0;i<str.length();i++){
+    str[i]=tolower(str[i]);
+    if(str[i]==' '){
+      int k=palindrome(str,n,i-1);
+      if(k==1){
+        count++;
+      }
+      n=i+1;
+    }
+    if(str[i+1]=='\0'){
+      int k=palindrome(str,n,i);
+      if(k==1){
+        count++;
+      }
+      n=i+1;
+    }
+  }
+  return count;
+}
+
+Q3. Capitalize first letter of each word in a string
+// Alter the string according to specifications above
+void capitalizeFirstChar(string &str)
+{
+for(int i=0;i<str.length();i++){
+  if(i==0){
+    str[i]=str[i]-32;
+  }
+  if(str[i]==' '){
+    str[i+1]=str[i+1]-32;
+  }
+}
+}
+
+Q4. String is pangram or not
+
+/*     
+ * Complete the 'isPangrams' function below.
+ * @params
+ *   str -> a string that is to be tested for pangram
+ *
+ * @return
+ *   boolean value, based on the fact, whether 
+ *   the given string is a pangram or not.
+ */
+bool isPangram(string str) {
+  // Write your code here
+  int hash[26]={0};
+  int a=str.size();
+  for(int i=0;i<a;i++){
+    if(str[i]!=' '){
+      hash[str[i]-'a']++;
+    }
+  }
+  for(int i=0;i<=25;i++){
+    if(hash[i]==0){
+      return 0;
+    }
+  }
+  return 1;
+}
+
+Q5 .Form a palindrome string 
+
+int minInsertions(string str1, string str2)
+{
+  int s = 0;
+  int c = 0;
+  int e = str1.length() - 1;
+  for(int i = 0; i < e; i++) {
+    if(str1[i] != str1[e]) {
+      s++;
+      c++;
+    }
+    else {
+      s++;
+      e--;
+    }
+  }
+  return c;
+}
+
+Q6.Kth largest number
+
+int kthLargest(int arr[], int size, int k) {
+  // Write your code here
+  for(int i=0;i<size-1;i++){
+    for(int j=0;j<size-i-1;j++){
+      if(arr[j]<arr[j+1])
+      {
+        int temp=arr[j];
+        arr[j]=arr[j+1];
+        arr[j+1]=temp;
+      }
+    }
+  }
+  return arr[k];
+}
+
+Q7 Matrix Multiplication
+
+// Print the resultant matrix after (A * B)
+void multiplyMatrix(int A[SIZE][SIZE],int B[SIZE][SIZE],int R1,int C1,int R2,int C2)
+{
+  int C[R1][C2];
+  for(int i=0;i<R1;i++){
+    for(int j=0;j<C2;j++){
+      int sum=0;
+      for(int k=0;k<C1;k++){
+        sum+=A[i][k]*B[k][j];
+      }
+      C[i][j]=sum;
+    }
+  }
+  for(int i=0;i<R1;i++){
+    for(int j=0;j<C2;j++){
+      cout<<C[i][j]<<" ";
+    }
+    cout<<endl;
+  }
+}
+
+Q8.Spirally traversing a matrix
+
+void printSpiral(int a[ROWS][COLS], int r, int c) {
+  // Write your code here
+  int top=0,left=0,bottom=r-1,right=c-1;
+  while(left<=right && top<=bottom)
+  {
+    for(int i=left;i<=right;i++)
+  {
+    cout<<a[top][i]<<endl;
+  }
+  top++;
+  for(int i=top;i<=bottom;i++)
+  {
+    cout<<a[i][right]<<endl;
+  }
+  right--;
+  if(top<=bottom)
+  {
+    for(int i=right;i>=left;i--)
+    {
+      cout<<a[bottom][i]<<endl;
+    }
+    bottom--;
+  }
+  if(left<=right)
+  {
+    for(int i=bottom;i>=top;i--)
+    {
+      cout<<a[i][left]<<endl;
+    }
+    left++;
+  }
+  }
+}
+
+Q9Row or Column sum 
+
+long sum = 0;
+  // n/2[2a + (n – 1)d]
+  if(ch == 'C') {
+    if(i > W) {
+      return 0;
+    }
+    int st = i;
+    for(int r = 0; r < row; r++) {
+      if(st > N) {
+        break;
+      }
+      sum += st;
+      st += W;
+    }
+  } else {
+    if(i > row) {
+      return 0;
+    }
+    int last = 1 + ((i-1)*W);
+    for(int r = 0; r < W; r++) {
+      if(last > N) {
+        break;
+}
+      sum += last;
+      last++;
+    }
+  }
+
+Q10Binary To Decimal Conversion
+int binaryToDecimal(string binary){
+  int n=binary.length()-1;
+  int deci=0;
+  for(int i=0;i<binary.length();i++){
+    if(binary[i]!='0'){
+      deci+=1*pow(2,n);
+    }
+    n--;
+  }
+  return deci;
+}
+
+Q11 Cut the sticks
+
+/*
+ * Complete the function below.
+ * Please store the size of the int array to be returned in result_size pointer. For example,
+ * int a[3] = {1, 2, 3};
+ * *result_size = 3;
+ * return a;
+ * 
+ */
+#include<algorithm>
+int* cutSticks(int lengths_size, int *lengths, int *result_size) 
+{
+   sort(lengths,lengths+lengths_size);
+  	int k=0;
+  	int a=lengths[0];
+  printf("%d\n",lengths_size);
+  for(int i=0;i<lengths_size;i++)
+  {
+    if(lengths[i]!=a)
+    {
+      a=lengths[i];
+      printf("%d\n",lengths_size-k);
+      i--;
+    }
+    else
+    {
+      k++;
+    }
+  }
+}
+
+Q12Copy the array Deep
+
+class Array {
+private:
+    int* arr;
+public:
+    Array() {
+        int i;
+        arr = new int[4];
+        for (i = 0; i < 4; i++) arr[i] = i;
+    }
+    // Copy constructor
+    Array(const Array& other) {
+        arr = new int[4];
+        for (int i = 0; i < 4; i++) {
+            arr[i] = other.arr[i];
+        }
+    }
+    // Assignment operator
+    Array& operator=(const Array& other) {
+        if (this != &other) {
+            delete[] arr;
+            arr = new int[4];
+            for (int i = 0; i < 4; i++) {
+                arr[i] = other.arr[i];
+            }
+        }
+        return *this;
+    }
+    void printArray() {
+        int i;
+        for (i = 0; i < 4; i++) cout << arr[i] << " ";
+        cout << endl;
+    }
+    void changeArray() {
+        int i;
+        for (i = 0; i < 4; i++) arr[i] = i * i;
+    }
+    ~Array() {
+        delete[] arr;
+    }
+};
+
+Q13.Find all permutations of a string 
+
+// void swap(char * x, char * y) is already defined
+// The first argument is the input string, and the 2nd argument is the empty vector of strings. 
+// Dont print the permutations. You need to save all permutations in the vector, passed as the 2nd argument.
+// void swap(char * x, char * y) is already defined
+// The first argument is the input string, and the 2nd argument is the empty vector of strings. 
+// Dont print the permutations. You need to save all permutations in the vector, passed as the 2nd argument.
+#include<bits/stdc++.h>
+int gb=0;
+void allPermutations(string str, vector<string> &permutations){
+  // Write your code here
+  if(gb==0){
+    sort(str.begin(),str.end());
+    gb++;
+  }
+  int n=str.length();
+  if(n==1){
+    permutations.push_back(str);
+    return ;
+  }
+  int i=0;
+  for(i=n-1;i>0;i--){
+    if(str[i-1]<str[i]){
+      break;
+    }
+  }
+  if(i!=0){
+    for(int j=n-1;j>0;j--){
+      if(str[i-1]<str[j]){
+        swap(str[i-1],str[j]);
+        break;
+      }
+    }
+  }
+  else{
+    reverse(str.begin(),str.end());
+    permutations.push_back(str);
+    return ;
+  }
+  reverse(str.begin()+i,str.end());
+  permutations.push_back(str);
+  allPermutations(str,permutations);
+}
+
+Q14 .Calculate amount using compound interes
+#include<iostream>
+#include<cstdio>
+#include<math.h>
+#include<iomanip>
+using namespace std;
+class Interest{
+  float p,r,n;
+  public:
+  Interest(float amount,float rate,float t)
+  {
+    p=amount;
+    r=rate;
+    n=t;
+  }
+  float findinterest()
+  {
+    return (p*pow((1+r/100),n));
+  }
+};
+int main()
+{
+    // Write your code here
+   float amount,rate,t;
+  cin>>amount>>rate>>t;
+     Interest ob(amount,rate,t);
+  float ans=ob.findinterest();
+  cout<<fixed<<setprecision(1)<<ans;
+    return 0;
+}
+Q15. Class - Rectangle
+
+class Rectangle
+{
+  // Write your code here
+  int x,y,m,n;
+  public:
+  Rectangle(int X,int Y,int w,int h)
+  {
+    x=X;
+    y=Y;
+    m=w;
+    n=h;
+  }
+  int getHeight()
+  {
+    return n;
+  }
+  int getWidth()
+  {
+    return m;
+  }
+  int getX(){
+    return x;
+  }
+  int getY(){
+    return y;
+  }
+  string toString(){
+    string s="Rectangle[x="+to_string(x)+",y="+to_string(y)+",width="+to_string(m)+",height="+to_string(n)+"]";
+    return s;
+  }
+};
+
+Q16 .Class - TimeSpan
+class TimeSpan
+{
+  // Write your code here
+  int ho;
+  int mi;
+ void calculate(){
+    ho = ho+ mi/60;
+    mi = mi%60;
+  }
+  public:
+  TimeSpan(int h,int m)
+  {
+    ho=h;
+    mi=m;
+  }
+  int getHours(){
+    return ho;
+  }
+  int getMinutes(){
+    return mi;
+  }
+  void add(int h,int m)
+  {
+    ho = ho + h;
+    mi = mi +m;
+    calculate();
+  }
+  void add(TimeSpan &tp)
+  {
+    ho +=tp.ho;
+    mi +=tp.mi;
+    calculate();
+  }
+  double getTotalHours(){
+    ho = ho+mi/60.0;
+  }
+  string toString(){
+    string s;
+    s += to_string(ho)+" Hours, "+to_string(mi)+" Minutes";
+    return s;
+  }
+};
+
+Q17 Class - Date
+class Date
+{
+  // Write your code here
+  int month;
+  int day;
+  public:
+  Date(int m,int d)
+  {
+    month =m;
+    day =d;
+  }
+  int daysInMonth(){
+    if(month == 4 || month ==6 || month == 9 || month == 11){
+      return 30;
+    }
+    else if(month ==2)
+    {
+      return 28;
+    }
+    else{
+      return 31;
+    }
+  }
+  int getDay(){
+    return day;
+  }
+  int getMonth(){
+    return month;
+  }
+  int nextDay(){
+    int daysInMonth = this->daysInMonth();
+    if(day < daysInMonth)
+    {
+      day++;
+    }
+    else{
+      day =1;
+      if(month < 12)
+      {
+        month++;
+      }
+      else{
+        month=1;
+      }
+    }
+  }
+  string toString(){
+    string s;
+    s=to_string(month)+"/"+to_string(day);
+    return s;
+  }
+  int absoluteDay(){
+    int daysInMonth[] = {31,28,31,30,31,30,31,31,30,31,30,31};
+    int absolute_day =0;
+    for(int i=0;i<month -1;i++)
+    {
+      absolute_day +=daysInMonth[i];
+    }
+    absolute_day+=day;
+    return absolute_day;
+  }
+};
+
+Q18 Class - Circle
+
+#define pi 3.14159
+class Circle
+{
+  float rad;
+  public:
+  Circle(float r)
+  {
+    rad =r;
+  }
+  float area(){
+    return rad*rad*pi;
+  }
+  float circumference(){
+    return 2*pi*rad;
+  }
+  float getRadius(){
+    return rad;
+  }
+  string toString(){
+    char s[100];
+    sprintf(s,"Circle{radius=%.1f}",rad);
+    return s;
+  }
+};
+Q19 Class - SafeArray
+class SafeArray{
+  //Complete the class definition
+  int size;
+  int arr[20];
+  public:
+  SafeArray(int s){
+    size = s;
+  }
+  void putElement(int index,int value){
+    arr[index] = value;
+  }
+  int getElement(int index)
+  {
+    if(index<20){
+      return arr[index];
+    }
+    else{
+      return -1;
+    }
+  }
+};
+Q20Class - TollBooth
+#include<iostream>
+#include<cstdio>
+#include<cmath>
+// Include headers as needed
+using namespace std;
+class TollBooth{
+  int total_cash;
+  int total_cars;
+  public:
+  TollBooth(){
+    total_cash = 0;
+    total_cars = 0;
+  }
+  int payingCar(){
+    total_cars++;
+    total_cash+=50;
+  }
+  int nopayCar(){
+    total_cars++;
+  }
+  void display(){
+    cout << "Total Cash : "<<total_cash<<"/-"<<endl;
+    cout << "Total Cars : "<<total_cars<<endl;
+  }
+};
+int main()
+{
+    // Write your code here
+  TollBooth t;
+  char ch;
+  cin>>ch;
+  while(ch!='q')
+  {
+    if(ch == 'p')
+    {
+      t.payingCar();
+    }
+    else{
+      t.nopayCar();
+    }
+    cin>>ch;
+  }
+    // Return 0 to indicate normal termination
+  if(ch == 'q')
+  {
+    t.display();
+  }
+    return 0;
+}
+
+Q21 Count number of Objects
+int cnt=0;	// manipluate this variable in your code
+class Counter
+{ 
+  public: 
+  Counter() {
+   cnt++; 
+  }
+  ~Counter() {
+    cnt--;
+  }
+};
+
+Q22 class - Box
+
+class Box
+{
+  int l,b,h;
+  public:
+  Box(){
+    l=0;
+    b=0;
+    h=0;
+  }
+  Box(int len,int breadth,int height)
+  {
+    l=len;
+   b= breadth;
+    h=height;
+  }
+  Box(Box &b1)
+  {
+    l=b1.l;
+    b=b1.b;
+    h=b1.h;
+  }
+  int getLength()
+  {
+    return l;
+  }
+  int getBreadth()
+  {
+    return b;
+  }
+  int getHeight()
+  {
+    return h;
+  }
+  long long CalculateVolume()
+  {
+    return l*b*h;
+  }
+};
+
+Q23Inheritance : Actors
+class Person
+{
+  protected:
+  	string n,c;
+  	int e,y;
+};
+class Actor : public Person
+{
+public:
+	Actor(string name,string color,int number_of_eyes, int debut_year){
+    	n = name;
+        c = color;
+        e = number_of_eyes;
+        y = debut_year;
+    }
+    string toString(){
+    	return "The person "+n+" is an Actor. He is "+c+" in color, has "
+        +to_string(e)+" eyes and debut in "+to_string(y)+"\n";
+    }
+};
+class Actress : public Person
+{
+public:
+	Actress(string name,string color,int number_of_eyes,int debut_year){
+    	n = name;
+        c = color;
+        e = number_of_eyes;
+        y = debut_year;
+    }
+    string toString(){
+    	return "The person "+n+" is an Actress. She is "+c+" in color, has "
+        +to_string(e)+" eyes and debut in "+to_string(y)+"\n";
+    }
+};
+
+Q24 Inheritance : CalculateBill
+#include<iostream>
+using namespace std;
+class Bill
+{
+  protected:
+  int price ,qty;
+};
+class Cash : public Bill
+{
+	int n_2000,n_500,n_100,n_50,n_10,amt;
+    public:
+ void get_cash()
+ {
+ 	// Complete the input function, dont change the name.
+    cin>>price>>qty>>n_2000>>n_500>>n_100>>n_50>>n_10;
+    amt = n_2000*2000+n_500*500 + n_100*100 +n_50*50+n_10*10;
+ }
+ void display()
+ {
+ 	// Complete the display function, dont change the name.
+    if(price*qty == amt || amt > price *qty)
+    {
+    	cout<<"Clear"<<endl;
+    }
+    else{
+    	cout<<"Need to pay: "<<price*qty-amt<<endl;
+    }
+ }
+};
+
+Q25 Inheritance : BookCD
+class Book : public Publication
+{
+	int page_count;
+    string author;
+    public:
+    Book(string tit,int pr,int pages,string writer){
+    	title = tit;
+        price = pr;
+        page_count = pages;
+        author = writer;
+    }
+    void putdata(){
+    	cout<<"Book Title \""<<title<<"\", written by \""<<author<<"\" has "<<page_count<<" pages and of "<<price<<" rupees."<<endl; 
+    }
+};
+class CD : public Publication
+{
+	int play_time;
+    public:
+     CD(string tit,int pr,int length){
+    	title=tit;
+        price=pr;
+        play_time=length;
+    }
+    void putdata(){
+    	cout<<"CD Title \""<<title<<"\", is of "<<play_time<<" minutes length and of "<<price<<" rupees."<<endl;
+    }
+};
+
+Q26 Inheritance : FilteredAccount
+
+class FilteredAccount : public Account
+{
+	// Write your code here
+private:
+    int filteredCount;
+public:
+     FilteredAccount(int accno) : Account(accno) {
+        filteredCount = 0;
+    }
+    int filtered(){ 
+      return filteredCount; 
+    }
+    bool process(Transaction t) {
+        if (t.value() == 0) {
+            filteredCount++;
+            return true;
+        } else {
+          return Account::process(t);
+        }
+    }
+};
+
+Q27 Inheritance : MemoryCalculator
+class MemoryCalculator : public Calculator
+{
+	private:
+    int arr[10000];
+    int computations;
+    int handledComputations;
+    public:
+    MemoryCalculator(int seed):Calculator(seed){
+    computations=0;
+    handledComputations=0;
+    for(int i=0;i<10000;i++){
+    arr[i]=0;
+    }
+    };
+    int getComputeCount(){
+    return computations;
+    }
+     int getMemoCount(){
+    return handledComputations;
+    }
+    int kthPrime(int k){
+       if(arr[k-1]==0){
+         arr[k-1]=Calculator::kthPrime(k);
+         computations++;
+       }
+       else{
+        handledComputations++;
+       }
+       return arr[k-1];
+    }
+};
+
+Q28Inheritance : Dice
+class Dice 
+{
+  public:
+  Dice(int count){
+     this->count=count;
+    diceValues=new int[this->count];
+    for(int i=0;i<this->count;i++){
+      diceValues[i]=6;
+    }
+    // for(int i=0;i<this->count;i++){
+      //   roll(i);
+     //}
+  };
+  virtual int getCount() const{
+    return count;
+  };
+  virtual int getValue(int index) const{
+    return diceValues[index];
+  };
+  virtual void roll(int index){
+    diceValues[index]=rand()%6+1;
+  };
+  void setValue(int index, int value){
+       diceValues[index]=value;
+  };   // not to be called by students
+  virtual int total() const{
+    int sum=0;
+    for(int i=0;i<count;i++){
+      sum+=diceValues[i];
+    }
+    return sum;
+  };
+  virtual string toString() const{
+    string temp="{";
+    int i;
+    for(i=0;i<count-1;i++){
+      temp+=to_string(diceValues[i])+", ";
+    }
+    temp+=to_string(diceValues[i])+"}";
+    return temp;
+  };
+  string toStringOriginal() const;       // not to be called by students
+  private:
+  int* diceValues;
+  int count;
+  friend ostream& operator <<(ostream& out, const Dice& dice){
+    int i;
+    out<<"{";
+    for(i=0;i<dice.count-1;i++){
+      out<<dice.diceValues[i]<<", ";
+    }
+    out<<dice.diceValues[i]<<"}";
+  };
+};
+
+Q29 Inheritance : StackSorted
+class StackSorted : public ArrayStack
+{
+ // Write your code here
+ public:
+ void solve(int a){
+ if(isEmpty()||peek()<=a){
+   ArrayStack::push(a);
+   return;
+ }
+      int x=pop();
+      solve(a);
+      ArrayStack::push(x);
+ }
+ void push(int a){
+    if(isEmpty()){
+      ArrayStack::push(a);
+    }
+    else {
+       solve(a);
+    }
+ }
+};
+
+Q30List as Stack or Queue
+#include <iostream>
+#include <vector>
+using namespace std;
+class List {
+public:
+    virtual void store(int val) = 0;
+    virtual int retrieve() = 0;
+};
+class Stack : public List {
+private:
+    vector<int> data;
+public:
+    void store(int val) override {
+        data.push_back(val);
+    }
+    int retrieve() override {
+        if (data.empty()) {
+            cout << "Stack is empty!\n";
+            return -1;
+        }
+        int val = data.back();
+        data.pop_back();
+        return val;
+    }
+};
+class Queue : public List {
+private:
+    vector<int> data;
+public:
+    void store(int val) override {
+        data.push_back(val);
+    }
+    int retrieve() override {
+        if (data.empty()) {
+            cout << "Queue is empty!\n";
+            return -1;
+        }
+        int val = data.front();
+        data.erase(data.begin());
+        return val;
+    }
+};
+int main() {
+    int type;
+    cin >> type;
+    List* myList;
+    if (type == 1) {
+        myList = new Stack();
+    } else {
+        myList = new Queue();
+    }
+    int op;
+    while (cin >> op) {
+        if (op == 1) {
+            int val;
+            cin >> val;
+            myList->store(val);
+        } else if (op == 2) {
+            int val = myList->retrieve();
+            if (val != -1) {
+                cout << val << endl;
+            }
+        }
+    }
+    delete myList;
+    return 0;
+}
+Q30Person Professor and Student
+class Person {
+protected:
+    int age;
+public:
+    Person() {}
+    virtual void getdata() {}
+    virtual void putdata() {}
+};
+class Professor : public Person {
+private:
+    int publications;
+    static int cur_id;
+    int id;
+public:
+    Professor() {
+        id = ++cur_id;
+    }
+    void getdata() {
+        cin >> age >> publications;
+    }
+    void putdata() {
+        cout << age << " " << publications << " " << id << endl;
+    }
+};
+int Professor::cur_id = 0;
+class Student : public Person {
+private:
+    int marks[6];
+    static int cur_id;
+    int id;
+public:
+    Student() {
+        id = ++cur_id;
+    }
+    void getdata() {
+        cin >> age;
+        for (int i = 0; i < 6; i++) {
+            cin >> marks[i];
+        }
+    }
+    void putdata() {
+        int sum = 0;
+        for (int i = 0; i < 6; i++) {
+            sum += marks[i];
+        }
+        cout << age << " " << sum << " " << id << endl;
+    }
+};
+int Student::cur_id = 0;
+
+Q31Find cumulative sum of a vector
+// Write the cumulative() function as specified above
+void cumulative(vector<int>&a){
+  for(int i=1;i<a.size();i++){
+    a[i]=a[i-1]+a[i];
+  }
+}
+
+Q32Find mean of a vector
+// Write the mean() function as specified above
+// Write the mean() function as specified above
+double mean(vector<double>&a){\
+  if(!a.size()){
+    return 0;
+  }
+  double sum=0;
+  for(int i=0;i<a.size();i++){
+    sum+=a[i];
+  }
+  return sum/a.size();
+}
+Q33Count in range from a vector
+// Write the countInRange() function as specified above
+// Write the countInRange() function as specified above
+int countInRange(vector<int>&v,int min,int max){
+  if(v.size()==0){
+    return 0;
+  }
+  int count=0;
+  for(int i=0;i<v.size();i++){
+    if(v[i]>=min && v[i]<=max){
+      count++;
+    }
+  }
+  return count;
+}
+
+Q34 Split the vector elements in two
+// Write the split() function as specified above// Write the split() function as specified above
+void split(vector<int>&v){
+  int n=v.size();
+    for(int i=0;i<n;i++){
+      int a=v[i]/2;
+      int b=v[i]-a;
+      //v.erase(v.begin()+i);
+      v.push_back(b);
+      v.push_back(a);
+    }
+  v.erase(v.begin(),v.begin()+n);
+}
+
+Q35 Beautify the vector
+// Write the beautify() function as specified above// Write the beautify() function as specified above
+void beautify(vector<string>&v){
+  int n=v.size();
+  for(int i=0;i<2*n;i+=2){
+    v.insert(v.begin()+i,"#");
+  }
+  v.insert(v.begin()+2*n,"#");
+}
+Q36.Switch numbers in a vector
+// Write the switchPairs() function as specified above// Write the switchPairs() function as specified above'
+void switchPairs(vector<int>&v){
+  if(v.size()==0||v.size()==1){
+    return;
+  }
+for(int i=0;i<v.size()-1;i+=2){
+  swap(v[i],v[i+1]);
+}
+}
+
+Q36 Check for balanced parentheses in string
+int balancedString(string s){
+	stack<char> st;
+  	for(int i=0;i<s.length();i++){
+      if(s[i]=='('||s[i]=='{'){
+        st.push(s[i]);
+      }else if(s[i]==')'||s[i]=='}'){
+        if(st.size()==0){
+          return i;
+        }
+        char ch=st.top();
+        if(s[i]==')'&&ch!='('){
+          return i;
+        }
+        else if(s[i]=='}'&&ch!='{'){
+          return i;
+        }
+        st.pop();
+      }
+    }
+  if(st.size()!=0){
+    return s.length();
+  }
+  return -1;
+  }
+
+Q37 Number is a Happy number or not
+bool isHappy(int n) {
+	while (n>9) {
+        int sum = 0;
+        while (n > 0) {
+            int digit = n % 10;
+            sum += digit * digit;
+            n /= 10;
+        }
+        n = sum;
+    }
+	return n==1;
+}
+
+Q38 Find the numbers appearing thrice
+// Complete the below function as specified below.
+#include<map>
+set<int> thrice(vector<int>& v)
+{
+	map<int ,int> m;
+  set<int>s;
+  for(auto it : v){
+    m[it]++;
+  }
+  for(auto it:m){
+    if(it.second==3){
+      s.insert(it.first);
+    }
+  }
+  return s;
+}
+
+Q39 Find first occurrence of an integer in a sorted list with duplicates
+#include<iostream>
+#include<cstdio>
+#include<cmath>
+using namespace std;
+int occurrences(int arr[], int n, int k) {
+  int s = 0;
+  int e = n - 1;
+  int ind = -1;
+  while(s <= e) {
+    int mid = s + ((e - s) / 2);
+    if(arr[mid] == k) {
+      ind = mid;
+      e = mid - 1;
+    }
+    else if(arr[mid] < k) {
+      s = mid + 1;
+    }
+    else {
+      e = mid - 1;
+    }
+  }
+    if(ind == -1) {
+      return -1;
+    }
+  return ind;
+}
+int main()
+{
+  int t = 0;
+  int n = 0;
+  int k = 0;
+  cin>>t;
+  for(int i = 0; i < t; i++) {
+    cin>>n;
+    cin>>k;
+    int arr[n];
+    for(int j = 0; j < n; j++) {
+      cin>>arr[j];
+    }
+    cout<<occurrences(arr, n, k)<<"\n";
+  }
+   return 0;
+}
+
+Q40 Find count of a number in a sorted list with duplicates
+#include<iostream>
+#include<cstdio>
+#include<cmath>
+using namespace std;
+int occurrences(int arr[], int n, int k) {
+  int s = 0;
+  int e = n - 1;
+  int ind1 = -1;
+  int ind2 = -1;
+  while(s <= e) {
+    int mid = s + ((e - s) / 2);
+    if(arr[mid] == k) {
+      ind1 = mid;
+      e = mid - 1;
+    }
+    else if(arr[mid] < k) {
+      s = mid + 1;
+    }
+    else {
+      e = mid - 1;
+    }
+  }
+  s = 0;
+  e = n - 1;
+  while(s <= e) {
+    int mid = s + ((e - s) / 2);
+    if(arr[mid] == k) {
+      ind2 = mid;
+      s = mid + 1;
+    }
+    else if(arr[mid] < k) {
+      s = mid + 1;
+    }
+    else {
+      e = mid - 1;
+    }
+  }
+  if(ind1 == -1) {
+    return 0;
+  }
+  return (ind2 - ind1) + 1;
+}
+int main()
+{
+  int t = 0;
+  int n = 0;
+  int k = 0;
+  cin>>t;
+  for(int i = 0; i < t; i++) {
+    cin>>n;
+    cin>>k;
+    int arr[n];
+    for(int j = 0; j < n; j++) {
+      cin>>arr[j];
+    }
+    cout<<occurrences(arr, n, k)<<"\n";
+  }
+   return 0;
+}
+
+Q41 Find Missing Element
+int getMissingElement(vector<int> A, vector<int> B) {
+  // Write your code here
+  int sum=0,sums=0;
+  for(int i=0;i<A.size();i++){
+    sum+=A[i];
+  }
+  for(int i=0;i<B.size();i++){
+    sums+=B[i];
+  }
+  return sum-sums;
+}
+
+Q42 Rotation count of a sorted Array
+int rotationCount(int arr[], int size) {
+  int s = 0;
+  int e = size - 1;
+  while(s <= e) {
+    if(arr[s] <= arr[e]) {
+      return s;
+    }
+    int mid = s + ((e - s) / 2);
+    if((mid > 0 && arr[mid] < arr[mid - 1]) && (mid < e && arr[mid] < arr[mid + 1])) {
+      return mid;
+    }
+    else if(arr[s] <= arr[mid]) {
+      s = mid + 1;
+    }
+    else {
+      e = mid - 1;
+    }
+  }
+  return s;
+}
+
+Q43 Rotation count of a sorted Array
+int rotationCount(int arr[], int size) {
+  int s = 0;
+  int e = size - 1;
+  while(s <= e) {
+    if(arr[s] <= arr[e]) {
+      return s;
+    }
+    int mid = s + ((e - s) / 2);
+    if((mid > 0 && arr[mid] < arr[mid - 1]) && (mid < e && arr[mid] < arr[mid + 1])) {
+      return mid;
+    }
+    else if(arr[s] <= arr[mid]) {
+      s = mid + 1;
+    }
+    else {
+      e = mid - 1;
+    }
+  }
+  return s;
+}
+
+Q44 Find all pairs with sum K
+int getPairsCount(int arr[], int n, int k) {
+  int l=0,r=n-1,count=0;
+  while(l<=r){
+    if(arr[l]+arr[r]<k){
+      l++;
+    }
+    else if(arr[l]+arr[r]>k){
+      r--;
+    }
+    else{
+      int x=arr[l],y=arr[r],xCount=0,yCount=0;
+      while(l<=r&&x==arr[l]){
+        xCount++;
+        l++;
+      }
+      if(x!=y){
+        while(r>=l&&y==arr[r]){
+          yCount++;
+          r--;
+        }
+        count+=(xCount*yCount);
+      }
+      else{
+        count+=((xCount)*(xCount-1))/2;
+      }
+    }
+  }
+  return count;
+}
+
+Q46 Make a group for competition
+
+long totalWays(vector<int> rollNo, int N) {
+  // Write your code here
+  long d =(pow(2,N)-1);
+  return d;
+}
+
+Q47 Buy maximum toys possible
+int maxToys(int cost[], int n, int X) {
+	// Write your code here
+  sort(cost,cost+n);
+  int count =0;
+  int sum =0;
+  for(int i=0;i<n;i++)
+  {
+    if(sum+cost[i]<=X)
+    {
+      sum +=cost[i]; 
+      count++;
+    }
+  }
+  return count;
+}
+
+Q47 Average people per city
+static int findAverage(int n, int m, int[][] arr) {
+  // Write your code here
+  long sum =0;
+  for(int i=0;i<arr.length;i++)
+  {
+    int a=arr[i][0];
+    int b=arr[i][1];
+    int k=arr[i][2];
+    sum +=(b-a+1)*k;
+  }
+  long avg = sum/n;
+  return (int)avg;
+}
+
+Q48 Reach a single digit
+// Return the total number of steps to reach a single digit
+static int totalSteps(long N) {
+  // Write your code here
+  int steps=0;
+  while(!(N<=9)){
+    int sum =0;
+   while(N!=0){
+     sum+=N%10;
+     N/=10;
+   } 
+    N=sum;
+    steps++;
+  }
+  return steps;
+}
+
+Q49 Grab the recursive gifts
+class Result {
+  /*     
+   *  Complete the 'enjoyOffer' function below.
+   *  return the total number of candies for each test case.
+   */
+  public static int enjoyOffer(int x, int y, int z) {
+    // Write your code here
+    int candies=x/y;
+    int Wrappers=candies;
+    if(Wrappers<z){
+      return candies;
+    }
+    while(Wrappers>=z){
+      int newCandies=Wrappers/z;
+      candies +=newCandies;
+      Wrappers +=newCandies;
+      Wrappers -=newCandies*z;
+    }
+    return candies;
+  }
+}
+
+Q50 Find the winner in elections
+class Result {
+  static int findWinner(int[] arr, int N) {
+	// Write Your Code here
+    if(N==1)
+      return arr[0];
+    int maximum = Integer.MIN_VALUE;
+    for(int i=0; i<N;i++)
+      maximum=Math.max(maximum,arr[i]);
+    int[] freq = new int[maximum+1];
+      for(int i=0;i<N;i++)
+        freq[arr[i]]++;
+    int max_freq=Integer.MIN_VALUE,element=0;
+    for(int i=0;i<N;i++){
+      if(freq[arr[i]]>max_freq){
+        max_freq=freq[arr[i]];
+        element=arr[i];
+      }
+    }
+        if(max_freq>N/2)
+          return element;
+    return -1;
+  }
+}
+
+Q51 Turning point in stock prices
+class Result {
+  static int turningPoint(int price[], int N) {
+    // Write your code here
+    int isInc = -1;
+    if(price[1]>price[0])
+      isInc = 1;
+    for(int i=1;i<N-1;i++){
+      if(isInc==-1){
+        if(price[i+1]>price[i])
+          return i+1;
+      }
+      else{
+        if(price[i+1]<price[i])
+          return i+1;
+      }
+    }
+    return -1;
+  }
+}
+
+Q52 Continuous Subtraction Game
+class Result {
+  // Return the element that will be left in the array after the game ends
+  static long subtractionGame(long[] arr) {
+	// Write your code here
+    long a=1,size=arr.length,sign=1;
+    long ans=0,mul=1;
+    for(int i=1;i<=size;i++){
+    ans =ans +sign*a*arr[i-1];
+    a=a*(size-i)/i;
+      sign*=-1;
+  }
+  return ans;
+}
+}
+
+Q53 Action Game
+long maxPoints(vector<int> arr, int K) {
+  // Write your code here  
+  long maximum=0;
+  long sum =0;
+  int i=0;
+  while(i<arr.size()){
+    if(arr[i]<=K)
+      sum += K-arr[i];
+    maximum =max(maximum,sum);
+    if(arr[i]>K)
+      sum=0;
+    i++;
+  }
+  return maximum;
+}
+
+Q54 Next Palindrome
+string nextPalindrome(string num) {
+  // Write your code here
+    string x=num;
+    int len=num.length();
+    for(int i=len/2;i<len;i++){
+      num[i]=num[len-i-1];
+    }
+    if(num>x){
+      return num;
+    }
+    else{
+      for(int i=(len-1)/2;i>=0;i--){
+        if(x[i]!='9'){
+          x[i]++;
+          break;
+        }
+        else{
+          x[i]='0';
+        }
+      }
+      for(int i=len/2;i<len;i++){
+        x[i]=x[len-i-1];
+      }
+      if(x[0]=='0'){
+        x+='1';
+        x[0]='1';
+      }
+    }
+    return x;
+  }
+
+Q55 Make pairs in the party
+class Result {
+  static int minResult(int[] boys, int[] girls) {
+	// Write your code here
+    int n =boys.length;
+    Arrays.sort(boys);
+    Arrays.sort(girls);
+    int product =0;
+    for(int i=0;i<n;i++)
+    {
+      product += boys[i]*girls[n-1-i];
+    }
+    return product;
+  }
+}
+
+Q56 Rotate a 2-D array by 90 degrees
+import java.util.Scanner;
+// Other imports go here, Do NOT change the class name
+class Main
+{
+  public static void main(String[] args)
+  {
+    // Write your code here
+      Scanner sc=new Scanner(System.in);
+    int t=sc.nextInt();
+    while(t>0){
+      int n=sc.nextInt();
+      int[][] mat=new int[n][n];
+      for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+          mat[i][j]=sc.nextInt();
+        }
+      }
+      for(int i=0;i<n;i++){
+        for(int j=0;j<i;j++){
+          int temp=mat[i][j];
+          mat[i][j]=mat[j][i];
+          mat[j][i]=temp;
+        }
+      }
+      for(int i=0;i<n;i++){
+        int j=0,k=n-1;
+        while(j<k){
+          int temp=mat[i][j];
+          mat[i][j]=mat[i][k];
+          mat[i][k]=temp;
+          j++;
+          k--;
+        }
+      }
+      for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+          System.out.print(mat[i][j]);
+          if(j!=n-1)System.out.print(" ");
+        }
+        System.out.println();
+      }
+      System.out.println();
+      t--;
+    }
+  }
+}
+
+Q57 Collect coins in snake game
+class Result
+{
+  // Print the number of coins collected from each cell, in the order of snake's movement.
+  static void collectCoins(int board[][], int m, int n) {
+	// Write your code here
+     if(board.length==0)
+      return;
+    if(m==0 && n==0)return;
+    int top=0,down=m-1,left=0,right=n-1;
+    int dir=0;
+    while(top<=down && left<=right){
+      if(dir==0){
+      for(int i=top;i<=down;i++){
+        System.out.print(board[i][left]+" ");
+      }
+        left++;
+        dir=1;
+      }
+      else if(dir==1){
+      for(int i=left;i<=right;i++){
+        System.out.print(board[down][i]+" ");
+      }
+      down--;
+        dir=2;
+      }
+      else if(dir==2){
+      for(int i=down;i>=top;i--){
+        System.out.print(board[i][right]+" ");
+      }
+      right--;
+        dir=3;
+      }
+      else if(dir==3){
+      for(int i=right;i>=left;i--){
+        System.out.print(board[top][i]+" ");
+      }
+      top++;
+        dir=0;
+      } 
+    }
+  }
+}
+Q58 Escape The Bombs
+
+class Result {
+  static int minScore(int mat[][], int m, int n) {
+	// Write your code here
+     int[] rows=new int[m];
+    int[] cols=new int[n];
+    for(int i=0;i<m;i++){
+      for(int j=0;j<n;j++){
+        if(mat[i][j]==0){
+          rows[i]=1;
+          cols[j]=1;
+        }
+      }
+    }
+    int score=0;
+    for(int i=0;i<m;i++){
+      for(int j=0;j<n;j++){
+        if(!(rows[i]==1 || cols[j]==1))
+          score+=mat[i][j];
+      }
+    }
+    return score;
+  }
+}
+Q59 Data Collection By Telecom Company
+
+import java.util.*;
+class Result {
+  static int collectData(int height[], int n) {
+    int sum = 0;
+    Stack <Integer> stk = new Stack<>();
+    for(int i = n - 1; i >= 0; i--) {
+      if(stk.isEmpty()) {
+        sum += -1;
+        stk.push(height[i]);
+      }
+      else {
+        while(!stk.isEmpty() && height[i] >= stk.peek()) {
+          stk.pop();
+        }
+        if(stk.isEmpty()) {
+          sum += -1;
+          stk.push(height[i]);
+        }
+        else {
+          sum += stk.peek();
+          stk.push(height[i]);
+        }
+      }
+    }
+    return sum;
+  }
+}
+
+Q60 Count the number of nodes in a circular linked list
+int countNodes(struct Node* head) {
+  if(head==NULL)return 0;
+  struct Node* cur = head;
+  int countNode = 1;
+  while(cur->next !=head){
+    countNode++;
+    cur = cur->next;
+  }
+  return countNode;
+}
